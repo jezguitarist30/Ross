@@ -1,0 +1,84 @@
+﻿@using uBlogsy.BusinessLogic;
+@inherits Umbraco.Web.Mvc.UmbracoTemplatePage
+@{
+    Layout = "MasterLayout.cshtml";
+}
+
+
+<!-- Inner Page Blog -->
+<div class="inner-blog">
+    <div class="container">
+        <div class="row">
+            
+            <div class="col-md-8 col-sm-8">
+                <!-- The new post done by user's all in the post block -->
+                <div class="blog-post">
+                    @Html.CachedPartial("uBlogsy/Landing/uBlogsyLandingListPosts", Model, 0, false, false, new ViewDataDictionary(ViewData) { { "ItemsPerPage", 20 } })                    
+                </div>
+
+                <!-- Pagination -->
+                <div class="paging">
+                    <span class='current'>1</span>
+                    <a href='#'>2</a>
+                    <span class="dots">&hellip;</span>
+                    <a href='#'>6</a>
+                    <a href="#">Next</a>
+                </div>
+                <div class="clearfix"></div>
+                <!-- Pagination End -->
+            </div>
+            <!-- Blog post End -->
+
+            <!-- Side Bar Start -->
+            <div class="col-md-4 col-sm-4">
+                <div class="inner-sidebar">
+                    
+                    <!-- Sidebar widget Start -->                    
+                    @Html.Partial("uBlogsy/Widgets/uBlogsyWidgetSearch")
+                    <!-- Sidebar widget End -->
+
+                    <!-- Second -->
+                    <div class="side-widget">
+                        @Html.CachedPartial("uBlogsy/Widgets/uBlogsyWidgetListPosts", Model, 0, false, true, new ViewDataDictionary(ViewData) { { "ItemLimit", 4 } })                                               
+                    </div>
+                    <!-- Third -->
+                    <div class="side-widget">
+                        @Html.CachedPartial("uBlogsy/Widgets/uBlogsyWidgetListTags", Model, 0, false, false, new ViewDataDictionary(ViewData) { { "ShowCount", true } })
+                        @*@Html.Partial("uBlogsy/Widgets/uBlogsyWidgetListTags", new ViewDataDictionary(ViewData) { { "ShowCount", true } })*@
+                                                                                         
+                    </div>
+                    <!-- Fourth -->
+                    <div class="side-widget">
+                        <h4>About Us</h4>
+                        <div class="widget-content">
+                            <p>Foresee the pain ancondb imentum rutrum aliquet. Quisque eu consectetur erat. Proin rutrum, erat egd trouble that are bound</p>
+                            <div class="social">
+                                <a href="#" class="facebook"><i class="fa fa-facebook"></i></a>
+                                <a href="#" class="twitter"><i class="fa fa-twitter"></i></a>
+                                <a href="#" class="google-plus"><i class="fa fa-google-plus"></i></a>
+                                <a href="#" class="linkedin"><i class="fa fa-linkedin"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Side BAr End -->
+
+        </div>
+    </div>
+</div>
+
+@section customScripts{
+    <script type="text/javascript">
+    $(document).ready(function () {
+        $('#uBlogsyBtnSearch').click(function () {
+            @{var landing = DataService.Instance.GetLanding(Model.Content); }
+            window.location.href = "@landing.Url()" + '?search=' + $("#uBlogsyTxtSearch").val();
+            return false;
+        });
+        $('#uBlogsyTxtSearch').keyup(function (e) {
+            if (e.which == 13) { $('#uBlogsyBtnSearch').trigger('click'); }
+        });
+    });
+    </script>
+}
