@@ -1,0 +1,26 @@
+
+-------------------------------------------------------------------------------
+   ROBOCOPY     ::     Robust File Copy for Windows                              
+-------------------------------------------------------------------------------
+
+  Started : Monday, May 11, 2015 1:25:35 PM
+   Source : C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\bin\
+     Dest : C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\App_Data\NuGetBackup\20150511-132535\bin\
+
+    Files : *.*
+	    
+  Options : *.* /S /E /DCOPY:DA /COPY:DAT /R:1000000 /W:30 
+
+------------------------------------------------------------------------------
+
+	                   0	C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\bin\
+
+------------------------------------------------------------------------------
+
+               Total    Copied   Skipped  Mismatch    FAILED    Extras
+    Dirs :         1         0         0         0         0         0
+   Files :         0         0         0         0         0         0
+   Bytes :         0         0         0         0         0         0
+   Times :   0:00:00   0:00:00                       0:00:00   0:00:00
+   Ended : Monday, May 11, 2015 1:25:35 PM
+

@@ -1,0 +1,136 @@
+﻿@*
+    Lists all Tags.
+*@
+
+@using System.Linq
+@using uBlogsy.BusinessLogic
+@inherits UmbracoTemplatePage
+@{
+    // get all tags
+    var tagCloud = PostService.Instance.GetTags(Model.Content, true);
+    // var tagCloud = NoLuceneFallbackService.Instance.GetTags(Model.Content.Id, true);
+
+    if (!tagCloud.Any()) { return; }
+
+    // get landing page
+    var landing = DataService.Instance.GetLanding(Model.Content);
+    var showCount = (bool)ViewData["ShowCount"];
+
+    NewNumber();
+    @RenderForWidget(landing, tagCloud, showCount)
+}
+
+
+
+@helper RenderForWidget(IPublishedContent landing, Dictionary<string, int> tagCloud, bool showCount)
+{
+    // add classes for each tag
+    var tagCloudClassed = new Dictionary<string, string>();
+    int counter = 0;
+    
+    foreach (var t in tagCloud.OrderBy(x => x.Value))
+    {        
+        if (!string.IsNullOrEmpty(t.Key.Trim()))
+        {            
+            // class each tag so we can size all
+            int classNumber = t.Value > 100 ? 100 : t.Value;
+
+            var url = landing.Url() + "?tag=" + Server.UrlEncode(t.Key);
+            string s;
+            string className = GetRandomTagClass(randomList[counter]);
+            
+            if (showCount)
+            {
+                s = "<a href=\"" + url + "\"  class=\"btn " + className + " btn-sm\" title=\"" + t.Key + "\">" + t.Key + " (" + t.Value + ")</a>";
+            }
+            else
+            {
+                s = "<a href=\"" + url + "\" class=\"btn " + className + " btn-sm\" title=\"" + t.Key + "\">" + t.Key + "</a>";
+            }
+
+            if (counter == randomList.Count() - 1)
+            {
+                counter = 0;
+            }
+            else
+            {
+                counter++;
+            }
+            
+            tagCloudClassed.Add(t.Key, s);
+        }
+    }
+
+    // alphabetise the tags and render
+    <h4>@Umbraco.GetDictionaryValue("uBlogsyDicTags")</h4>
+    <div class="widget-content">
+        @foreach (var t in tagCloudClassed.OrderBy(x => x.Key))
+        {
+            @Html.Raw(t.Value);
+        }    
+    </div>
+
+}
+
+@functions
+{
+    public string GetRandomTagClass(int randNum)
+    {      
+        string strClass = "";
+        
+        switch (randNum)
+        {
+            case 0:
+                strClass = "btn-success";
+                break;
+            case 1:
+                strClass = "btn-warning";
+                break;
+            case 2:
+                strClass = "btn-primary";
+                break;
+            case 3:
+                strClass = "btn-danger";
+                break;
+            case 4:
+                strClass = "btn-info";
+                break;
+            default:
+                strClass = "btn-success";
+                break;
+        }
+
+        return strClass;
+    }
+
+    public Random a = new Random(); // replace from new Random(DateTime.Now.Ticks.GetHashCode());
+    // Since similar code is done in default constructor internally
+    public List<int> randomList = new List<int>();
+    int MyNumber = 0;
+    private void NewNumber()
+    {
+        for (int i = 0; i < 5; i++)
+        {
+            MyNumber = a.Next(0, 5);
+
+            if (!randomList.Contains(MyNumber))
+            {
+                randomList.Add(MyNumber);
+            }
+            else
+            {
+                i--;
+            }
+                
+        }
+        
+       
+       
+               
+    }
+    
+    
+
+}
+
+

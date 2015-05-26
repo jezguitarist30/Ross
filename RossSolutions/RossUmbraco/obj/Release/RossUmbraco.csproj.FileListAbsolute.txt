@@ -1,0 +1,5 @@
+C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\bin\RossUmbraco.dll.config
+C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\bin\RossUmbraco.dll
+C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\bin\RossUmbraco.pdb
+C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\obj\Release\RossUmbraco.dll
+C:\Users\jmaghuyop\Documents\Work\Development\Github\Ross\RossSolutions\RossUmbraco\obj\Release\RossUmbraco.pdb
